@@ -1,3 +1,11 @@
+#timer {
+  text-align: right;
+}
+
+nav {
+  padding: 5px;
+}
+
 main {
   margin: auto;
   width: 50%;
@@ -10,4 +18,3 @@ main {
 #ans {
   text-align: center;
 }
-

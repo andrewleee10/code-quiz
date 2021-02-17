@@ -7,11 +7,21 @@
   <title>Coding Quiz Challenge</title>
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+
   <link rel='stylesheet' href='./style.css'>
 </head>
 <body>
   <nav>
-    <a href='./highscore.html'>View Highscores</a>
+    <div class="row">
+      <div class="col-sm-6">
+        <a href='./highscore.html'>View Highscores</a>
+      </div>
+      <div class="col-sm-6">
+        <p id="timer">Time: 0</p>
+      </div>
+    </div>
   </nav>
   <main>
     <h2>Coding Quiz Challenge</h2>
@@ -20,5 +30,7 @@
       <button type='submit' id='startBtn'>Start Quiz</button> 
     </form>
   </main>
+
+  <script src='./app.js'></script>
 </body>
 </html>
