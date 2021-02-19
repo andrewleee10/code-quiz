@@ -102,7 +102,7 @@ let finishPage = [
 
 // document.getElementById('scoreElem').localStorage.getItem('initials')
 
-  // Timer
+  // Timer starts and quiz starts
 document.getElementById('startBtn').addEventListener('click', () => {
   
   let time = setInterval(() => {
@@ -115,7 +115,7 @@ document.getElementById('startBtn').addEventListener('click', () => {
     }
   }, 1000);
 
-  // Start quiz
+  // first question appears
   document.getElementById('quiz').innerHTML = quizQuestions[questionPos]
 
   document.addEventListener('click', event => {
@@ -133,9 +133,9 @@ document.getElementById('startBtn').addEventListener('click', () => {
           console.log(score)
         } 
       }
-      else {
+      else if(questionPos >= quizQuestions.length){
         document.getElementById('quiz').innerHTML = finishPage[0]
-
+        clearInterval(time)
         document.getElementById('finish').addEventListener('click', () => {
 
             document.getElementById('timer').textContent = `Time: 0`
