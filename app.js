@@ -48,7 +48,7 @@ let quizQuestions = [
       </div>
     </div>
   </div>`,
-  `<h2>String values must be enclosed wihtin ___ when being assigned to variables</h2>
+  `<h2>String values must be enclosed within ___ when being assigned to variables</h2>
   <div id="btns">
     <div class="row">
       <div class="col-sm-6">
@@ -58,7 +58,7 @@ let quizQuestions = [
     </div>
     <div class="row">
       <div class="col-sm-6">
-        <button class="ansChoice corect">C. Quotes</button>
+        <button class="ansChoice correct">C. Quotes</button>
         <button class="ansChoice wrong">D. Parentheses</button>
       </div>
     </div>
@@ -80,6 +80,70 @@ let quizQuestions = [
   </div>`
 ]
 
+let startPage = [
+  `
+  <h2>Coding Quiz Challenge</h2>
+  <p>Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answers will
+  penalize your score/time by ten seconds!</p>
+  <button type='submit' id='startBtn'>Start Quiz</button>
+  `
+]
+
+// document.getElementById('scoreElem').localStorage.getItem('initials')
+
+  // Timer
+document.getElementById('startBtn').addEventListener('click', () => {
+  
+  let time = setInterval(() => {
+    count--
+    document.getElementById('timer').innerHTML = `Time: ${count}`
+  }, 1000);
+
+  // Start quiz
+  document.getElementById('quiz').innerHTML = quizQuestions[questionPos]
+
+  document.addEventListener('click', event => {
+
+    if(event.target.classList.contains('ansChoice')) {
+      if(questionPos < quizQuestions.length) {
+        questionPos++
+        document.getElementById('quiz').innerHTML = quizQuestions[questionPos]
+
+        if(event.target.classList.contains('wrong')) {
+          count -= 10
+        }
+        if (event.target.classList.contains('correct')){
+          score++
+          console.log(score)
+        } 
+      }
+      else {
+        document.getElementById('quiz').innerHTML = finishPage[0]
+
+        document.getElementById('finish').addEventListener('click', event => {
+          event.preventDefault()
+
+          console.log(score)
+          clearInterval(time)
+          document.getElementById('timer').textContent = `Time: 75`
+          localStorage.setItem('initials', document.getElementById('initials').value)
+          document.getElementById('quiz').innerHTML = finishPage[1]
+          console.log(localStorage.getItem('initials'))
+
+          document.getElementById('clear').addEventListener('click', () => {
+            localStorage.clear()
+            document.getElementById('scoreElem').textContent = ''
+          })
+
+          document.getElementById('goBack').addEventListener('click', () => {
+            document.getElementById('quiz').innerHTML = startPage[0]
+          })
+          })
+        }
+      }
+  })
+})
+
 let finishPage = [
   `<h2>All done!</h2>
   <form>
@@ -97,52 +161,7 @@ let finishPage = [
   </p>
   <p>
     <button id="clear">Clear</button>
-    <button id="highscores>Highscores</button>
+    <button id="goBack">Go Back</button>
   </p>
   `
 ]
-
-
-document.getElementById('scoreElem').localStorage.getItem('initials')
-
-  // Timer
-document.getElementById('startBtn').addEventListener('click', () => {
-  
-  setInterval(() => {
-    count--
-    document.getElementById('timer').innerHTML = `Time: ${count}`
-  }, 1000);
-
-  // Start quiz
-  document.getElementById('quiz').innerHTML = quizQuestions[questionPos]
-
-  document.addEventListener('click', event => {
-
-    if(event.target.classList.contains('ansChoice')) {
-      if(questionPos < ((quizQuestions.length)-1)) {
-        questionPos++
-        document.getElementById('quiz').innerHTML = quizQuestions[questionPos]
-
-        if(event.target.classList.contains('wrong')) {
-          count -= 10
-        }
-        if (event.target.classList.contains('correct')){
-          score += 1
-        } 
-      }
-      else {
-        document.getElementById('quiz').innerHTML = finishPage[0]
-
-        document.getElementById('finish').addEventListener('click', event => {
-          event.preventDefault()
-
-          console.log(score)
-          let init = localStorage.setItem('initials', document.getElementById('initials').value)
-          document.getElementById('quiz').innerHTML = finishPage[1]
-          })
-        }
-      }
-  })
-})
-
-  
