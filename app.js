@@ -100,7 +100,6 @@ let finishPage = [
   `
 ]
 
-// document.getElementById('scoreElem').localStorage.getItem('initials')
 
   // Timer starts and quiz starts
 document.getElementById('startBtn').addEventListener('click', () => {
@@ -139,8 +138,6 @@ document.getElementById('startBtn').addEventListener('click', () => {
         document.getElementById('finish').addEventListener('click', () => {
 
             document.getElementById('timer').textContent = `Time: 0`
-
-            // let user = document.getElementById('initials').value
 
             localStorage.setItem('initials', document.getElementById('initials').value)
             document.getElementById('scoreElem').append(document.getElementById('initials').value)
