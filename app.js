@@ -87,8 +87,8 @@ let finishPage = [
       <label for="initial">Initials: </label>
       <input type="text" id="initials">
     </p>
+    <button id="finish">Submit</buttton>
   </form>
-  <button type="submit" id="finish">Submit</buttton>
   `,
   `
   <h2>Highscores:</h2>
@@ -129,28 +129,44 @@ document.getElementById('startBtn').addEventListener('click', () => {
         }
         if (event.target.classList.contains('correct')){
           score++
-          console.log(score)
         } 
       }
-      else if(questionPos >= quizQuestions.length){
-        document.getElementById('quiz').innerHTML = finishPage[0]
+      else if(questionPos >= quizQuestions.length) {
         clearInterval(time)
-        document.getElementById('finish').addEventListener('click', () => {
+        document.getElementById('quiz').innerHTML = finishPage[0]
 
-            document.getElementById('timer').textContent = `Time: 0`
+        let users = JSON.parse(localStorage.getItem('users')) || []
+        users.forEach(user => {
+          let userElem = document.getElementById('scoreElem')
+          userElem.append(`${user.initial} - ${user.score}`)
+          document.getElementById('scoreElem').append(userElem)
+        })
 
-            localStorage.setItem('initials', document.getElementById('initials').value)
-            document.getElementById('scoreElem').append(document.getElementById('initials').value)
-            document.getElementById('initials').value = ''
-            
-            document.getElementById('quiz').innerHTML = finishPage[1]
-            
-            document.getElementById('clear').addEventListener('click', () => {
+        document.getElementById('finish').addEventListener('click', event => {
+          event.preventDefault()
+
+          document.getElementById('timer').textContent = `Time: 0`
+          let user = {
+            initial: document.getElementById('initials').value,
+            score: count
+          }
+          users.push(user)
+          localStorage.setItem('users', JSON.stringify(users))
+          
+          document.getElementById('quiz').innerHTML = finishPage[1]
+          
+          let userElem = document.getElementById('scoreElem')
+          userElem.append(`${user.initial} - ${user.score}`)
+          document.getElementById('scoreElem').append(userElem)
+
+          // document.getElementById('initials').value = ''
+
+          document.getElementById('clear').addEventListener('click', () => {
               localStorage.clear()
               document.getElementById('scoreElem').textContent = ''
             })
             
-            document.getElementById('goBack').addEventListener('click', () => {
+          document.getElementById('goBack').addEventListener('click', () => {
               location.href = './index.html'
             })
           
@@ -160,19 +176,26 @@ document.getElementById('startBtn').addEventListener('click', () => {
   })
 })
 
-
 // when 'highscores' is clicked show highscores
 document.addEventListener('click', event => {
   if(event.target.classList.contains('showHigh')) {
     document.getElementById('quiz').innerHTML = finishPage[1]
 
+    // when clear btn is clicked clear highscores from localStorage and page
     document.getElementById('clear').addEventListener('click', () => {
       localStorage.clear()
       document.getElementById('scoreElem').textContent = ''
     })
 
+    // when go back btn is clicked go back to index
     document.getElementById('goBack').addEventListener('click', () => {
       location.href = './index.html'
     })
   }
 })
+
+
+// STILL NEED TO FIX:
+
+// localStorage
+// Appending initial and score to highscore page
