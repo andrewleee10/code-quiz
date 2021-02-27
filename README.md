@@ -1,6 +1,6 @@
 # code-quiz
 
-This app is a quiz application using javascript to keep track of highscores and initials
+This app is a coding quiz application using javascript to keep track of highscores and initials
 
 Still needs work on localStorage
 
